@@ -7,7 +7,7 @@ This project is currently under development. The frontend is being built alongsi
 The current focus is on building the **authentication system, protected routing, and role-based access control** for three types of users:
 
 * `admin`
-* `manager`
+* `manager` 
 * `developer`
 
 ---
