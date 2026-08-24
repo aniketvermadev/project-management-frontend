@@ -1,93 +1,107 @@
 import {
-    Navigate,
-    Route,
-    Routes,
+  Navigate,
+  Route,
+  Routes,
 } from "react-router-dom";
 
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-
+import Dashboard from "../pages/Dashboard";
+import Projects from "../pages/Projects";
+import Tasks from "../pages/Tasks";
 import Unauthorized from "../pages/Unauthorized";
 
 import ProtectedRoute from "../components/ProtectedRoute";
-import Admin from "../pages/Admin";
-import Manager from "../pages/Manager";
-import Developer from "../pages/Developer";
+import DashboardLayout from "../layout/DashboardLayout";
+import DevelopersListing from "../pages/DevelopersListing";
 
 const AppRoutes = () => {
-    return (
-        <Routes>
+  return (
+    <Routes>
 
-            {/* Public */}
+      {/* Public */}
+      <Route
+        path="/login"
+        element={<Login />}
+      />
+
+      {/* All authenticated users */}
+      <Route element={<ProtectedRoute />}>
+
+        <Route element={<DashboardLayout />}>
+
+          {/* Dashboard - Admin, Manager, Developer */}
+          <Route
+            path="/dashboard"
+            element={<Dashboard />}
+          />
+
+          {/* Developers - Admin + Manager */}
+          <Route
+            element={
+              <ProtectedRoute
+                allowedRoles={[
+                  "admin",
+                  "manager",
+                ]}
+              />
+            }
+          >
             <Route
-                path="/login"
-                element={<Login />}
+              path="/developers"
+              element={<DevelopersListing />}
             />
+          </Route>
 
-            {/* Admin */}
+          {/* Projects - All roles */}
+          <Route
+            path="/projects"
+            element={<Projects />}
+          />
+
+          {/* Tasks - All roles */}
+          <Route
+            path="/tasks"
+            element={<Tasks />}
+          />
+
+          {/* Register - Admin only */}
+          <Route
+            element={
+              <ProtectedRoute
+                allowedRoles={["admin"]}
+              />
+            }
+          >
             <Route
-                element={
-                    <ProtectedRoute
-                        allowedRoles={["admin"]}
-                    />
-                }
-            >
-                <Route
-                    path="/admin"
-                    element={<Admin />}
-                />
-
-                <Route
-                    path="/admin/register"
-                    element={<Register />}
-                />
-            </Route>
-
-            {/* Manager */}
-            <Route
-                element={
-                    <ProtectedRoute
-                        allowedRoles={["manager"]}
-                    />
-                }
-            >
-                <Route
-                    path="/manager"
-                    element={<Manager />}
-                />
-            </Route>
-
-            {/* Developer */}
-            <Route
-                element={
-                    <ProtectedRoute
-                        allowedRoles={["developer"]}
-                    />
-                }
-            >
-                <Route
-                    path="/developer"
-                    element={<Developer />}
-                />
-            </Route>
-
-            <Route
-                path="/unauthorized"
-                element={<Unauthorized />}
+              path="/admin/register"
+              element={<Register />}
             />
+          </Route>
 
-            <Route
-                path="*"
-                element={
-                    <Navigate
-                        to="/login"
-                        replace
-                    />
-                }
-            />
+        </Route>
 
-        </Routes>
-    );
+      </Route>
+
+      {/* Unauthorized */}
+      <Route
+        path="/unauthorized"
+        element={<Unauthorized />}
+      />
+
+      {/* Fallback */}
+      <Route
+        path="*"
+        element={
+          <Navigate
+            to="/dashboard"
+            replace
+          />
+        }
+      />
+
+    </Routes>
+  );
 };
 
 export default AppRoutes;
