@@ -136,7 +136,7 @@ const Dashboard = () => {
               Welcome back, {user.name} 👋
             </h1>
 
-            <p className="mt-2 max-w-xl text-sm leading-6 text-slate-500">
+            <p className="mt-2 text-left max-w-xl text-sm leading-6 text-slate-500">
               {currentRole.description}
             </p>
           </div>
