@@ -14,6 +14,7 @@ import Unauthorized from "../pages/Unauthorized";
 import ProtectedRoute from "../components/ProtectedRoute";
 import DashboardLayout from "../layout/DashboardLayout";
 import DevelopersListing from "../pages/DevelopersListing";
+import CreateProject from "../pages/CreateProject";
 
 const AppRoutes = () => {
   return (
@@ -50,6 +51,11 @@ const AppRoutes = () => {
             <Route
               path="/developers"
               element={<DevelopersListing />}
+            />
+
+            <Route
+              path="/projects/create"
+              element={<CreateProject />}
             />
           </Route>
 

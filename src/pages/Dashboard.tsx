@@ -15,7 +15,8 @@ const Dashboard = () => {
   const { user } = useAuth();
 
   const canViewUsers =
-    user?.role === "admin"
+    user?.role === "admin" || 
+    user?.role === "manager";
 
   const {
     data: users = [],

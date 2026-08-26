@@ -11,3 +11,23 @@ export const getProjects = async (): Promise<Project[]> => {
 
   return response.data.projects;
 };
+
+export interface CreateProjectPayload {
+  title: string;
+  description: string;
+  createdBy: string;
+  assignedDevelopers: string[];
+  status: "planning" | "in-progress" | "completed" | "on-hold";
+  deadline: string;
+}
+
+export const createProject = async (
+  payload: CreateProjectPayload
+) => {
+  const response = await api.post(
+    "/projects/create",
+    payload
+  );
+
+  return response.data;
+};
