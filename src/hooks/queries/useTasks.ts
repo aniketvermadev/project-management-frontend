@@ -3,9 +3,9 @@ import {
   getTasks,
 } from "../../services/taskService";
 
-export const useTasks = (developerId: string) => {
+export const useTasks = (user: any) => {
   return useQuery({
     queryKey: ["tasks"],
-    queryFn: () => getTasks(developerId || ""),
+    queryFn: () => getTasks(user || {}),
   });
 };

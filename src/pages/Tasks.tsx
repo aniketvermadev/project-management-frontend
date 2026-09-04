@@ -18,7 +18,7 @@ const Tasks = () => {
     data: tasks = [],
     isLoading,
     isError,
-  } = useTasks(user?._id || "");
+  } = useTasks(user || {});
 
   if (!user) {
     return null;

@@ -6,8 +6,8 @@ export interface Project {
   description?: string;
 }
 
-export const getProjects = async (developerId: string): Promise<Project[]> => {
-  const response = await api.get(`/projects?developer=${developerId}`);
+export const getProjects = async (user: any): Promise<Project[]> => {
+  const response = await api.get(`/projects?${user?.role}=${user?._id || ""}`);
 
   return response.data.projects;
 };

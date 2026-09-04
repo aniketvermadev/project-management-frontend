@@ -64,7 +64,7 @@ const CreateTask = () => {
   const {
     data: projects = [],
     isLoading: projectsLoading,
-  } = useProjects(user?._id || "");
+  } = useProjects(user || {});
 
   const createTaskMutation =
     useCreateTask();

@@ -23,7 +23,7 @@ const Sidebar = () => {
             PM
           </div>
 
-          <div>
+          <div className="text-left">
             <h1 className="text-sm font-bold tracking-tight text-slate-900">
               Project Manager
             </h1>

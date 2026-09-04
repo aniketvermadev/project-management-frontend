@@ -7,8 +7,8 @@ export interface Task {
   priority?: string;
 }
 
-export const getTasks = async (developerId: string): Promise<Task[]> => {
-  const response = await api.get(`/tasks?developer=${developerId}`);
+export const getTasks = async (user: any): Promise<Task[]> => {
+  const response = await api.get(`/tasks?${user?.role}=${user?._id || ""}`);
 
   return response.data.tasks;
 };

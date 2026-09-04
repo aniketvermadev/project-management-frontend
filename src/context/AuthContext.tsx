@@ -7,6 +7,7 @@ import {
 
 import api from "../services/api";
 import type { User } from "../types/auth";
+import { logoutUser } from "../services/authService";
 
 interface AuthContextType {
   user: User | null;
@@ -26,7 +27,7 @@ export const AuthProvider = ({
   children: ReactNode;
 }) => {
   const [token, setToken] = useState<string | null>(
-    localStorage.getItem("token")
+    localStorage.getItem("accessToken")
   );
 
   const [user, setUser] = useState<User | null>(() => {
@@ -51,23 +52,31 @@ export const AuthProvider = ({
       password,
     });
 
-    const { token, user } = response.data;
+    const { accessToken, user } = response.data;
 
-    localStorage.setItem("token", token);
+    console.log("Login response:", response.data);
+
+    localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("user", JSON.stringify(user));
 
-    setToken(token);
+    setToken(accessToken);
     setUser(user);
 
     return user;
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+  const logout = async () => {
+    try {
+      await logoutUser();
+    } finally {
+      localStorage.removeItem(
+        "accessToken"
+      );
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
 
-    setToken(null);
-    setUser(null);
+      setUser(null);
+    }
   };
 
   return (

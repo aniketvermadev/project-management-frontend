@@ -19,7 +19,7 @@ const Projects = () => {
     data: projects = [],
     isLoading,
     isError,
-  } = useProjects(user?._id || "");
+  } = useProjects(user || {});
 
   if (!user) {
     return null;

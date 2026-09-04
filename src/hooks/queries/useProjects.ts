@@ -3,9 +3,9 @@ import {
   getProjects,
 } from "../../services/projectService";
 
-export const useProjects = (developerId: string) => {
+export const useProjects = (user: any) => {
   return useQuery({
     queryKey: ["projects"],
-    queryFn: () => getProjects(developerId),
+    queryFn: () => getProjects(user),
   });
 };
