@@ -9,15 +9,16 @@ import { useTasks } from "../hooks/queries/useTasks";
 
 import Table from "../components/Table";
 import type { Task } from "../types/task";
+import { useNavigate } from "react-router-dom";
 
 const Tasks = () => {
   const { user } = useAuth();
-
+  const navigate = useNavigate();
   const {
     data: tasks = [],
     isLoading,
     isError,
-  } = useTasks();
+  } = useTasks(user?._id || "");
 
   if (!user) {
     return null;
@@ -97,9 +98,8 @@ const Tasks = () => {
 
         return (
           <span
-            className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${
-              priorityStyles[task.priority]
-            }`}
+            className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${priorityStyles[task.priority]
+              }`}
           >
             {task.priority}
           </span>
@@ -128,9 +128,8 @@ const Tasks = () => {
 
         return (
           <span
-            className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${
-              statusStyles[task.status]
-            }`}
+            className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${statusStyles[task.status]
+              }`}
           >
             {task.status.replace(
               "-",
@@ -152,8 +151,8 @@ const Tasks = () => {
           <span>
             {task.deadline
               ? new Date(
-                  task.deadline
-                ).toLocaleDateString()
+                task.deadline
+              ).toLocaleDateString()
               : "No deadline"}
           </span>
 
@@ -183,6 +182,9 @@ const Tasks = () => {
         {canCreateTask && (
           <button
             type="button"
+            onClick={() =>
+              navigate("/tasks/create")
+            }
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             <Plus size={18} />

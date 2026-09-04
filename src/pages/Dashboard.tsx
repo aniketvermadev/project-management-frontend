@@ -28,13 +28,13 @@ const Dashboard = () => {
     data: projects = [],
     isLoading: projectsLoading,
     isError: projectsError,
-  } = useProjects();
+  } = useProjects(user?._id || "");
 
   const {
     data: tasks = [],
     isLoading: tasksLoading,
     isError: tasksError,
-  } = useTasks();
+  } = useTasks(user?._id || "");
 
   if (!user) {
     return null;
